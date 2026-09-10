@@ -1,0 +1,443 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 71;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		B10000000000000000000001 /* iosClawMac/iosClawMacApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20000000000000000000001 /* iosClawMac/iosClawMacApp.swift */; };
+		B10000000000000000000002 /* iosClawMac/ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20000000000000000000002 /* iosClawMac/ContentView.swift */; };
+		B10000000000000000000003 /* iosClawMac/MirrorSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20000000000000000000003 /* iosClawMac/MirrorSession.swift */; };
+		B10000000000000000000004 /* iosClawMac/Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20000000000000000000004 /* iosClawMac/Models.swift */; };
+		B10000000000000000000005 /* iosClawMac/SecureAuditStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20000000000000000000005 /* iosClawMac/SecureAuditStore.swift */; };
+		B10000000000000000000008 /* iosClawMac/SecureLearningStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20000000000000000000008 /* iosClawMac/SecureLearningStore.swift */; };
+		B10000000000000000000009 /* iosClawMac/MirrorInputBackend.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20000000000000000000009 /* iosClawMac/MirrorInputBackend.swift */; };
+		B10000000000000000000010 /* iosClawMac/QAModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20000000000000000000010 /* iosClawMac/QAModels.swift */; };
+		B10000000000000000000011 /* iosClawMac/WDAClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20000000000000000000011 /* iosClawMac/WDAClient.swift */; };
+		B10000000000000000000012 /* iosClawMac/SecureQAStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20000000000000000000012 /* iosClawMac/SecureQAStore.swift */; };
+		B10000000000000000000013 /* iosClawMac/QAExecutionEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20000000000000000000013 /* iosClawMac/QAExecutionEngine.swift */; };
+		B10000000000000000000014 /* iosClawMac/QASession.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20000000000000000000014 /* iosClawMac/QASession.swift */; };
+		B10000000000000000000015 /* iosClawMac/QAModeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20000000000000000000015 /* iosClawMac/QAModeView.swift */; };
+		B10000000000000000000017 /* iosClawMac/AppCore/AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20000000000000000000018 /* iosClawMac/AppCore/AppCoordinator.swift */; };
+		B10000000000000000000018 /* iosClawMac/AppShell/AppShellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20000000000000000000019 /* iosClawMac/AppShell/AppShellView.swift */; };
+		B10000000000000000000019 /* iosClawMac/AppShell/AppSidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20000000000000000000020 /* iosClawMac/AppShell/AppSidebar.swift */; };
+		B10000000000000000000028 /* iosClawMac/AppShell/AppTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20000000000000000000029 /* iosClawMac/AppShell/AppTheme.swift */; };
+		B10000000000000000000029 /* iosClawMac/Features/Devices/DevicesFeatureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20000000000000000000030 /* iosClawMac/Features/Devices/DevicesFeatureView.swift */; };
+		B10000000000000000000030 /* iosClawMac/Features/Settings/SettingsFeatureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20000000000000000000031 /* iosClawMac/Features/Settings/SettingsFeatureView.swift */; };
+		B10000000000000000000020 /* iosClawMac/Features/Inspection/InspectionFeatureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20000000000000000000021 /* iosClawMac/Features/Inspection/InspectionFeatureView.swift */; };
+		B10000000000000000000021 /* iosClawMac/Features/Inspection/CapturePresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20000000000000000000022 /* iosClawMac/Features/Inspection/CapturePresentation.swift */; };
+		B10000000000000000000022 /* iosClawMac/Features/Learning/LearnedContextFeatureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20000000000000000000023 /* iosClawMac/Features/Learning/LearnedContextFeatureView.swift */; };
+		B10000000000000000000023 /* iosClawMac/Features/Audit/AuditFeatureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20000000000000000000024 /* iosClawMac/Features/Audit/AuditFeatureView.swift */; };
+		B10000000000000000000024 /* iosClawMac/SecureActionFlowStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20000000000000000000025 /* iosClawMac/SecureActionFlowStore.swift */; };
+		B10000000000000000000025 /* iosClawMac/Features/Recording/RecordReplayFeatureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20000000000000000000026 /* iosClawMac/Features/Recording/RecordReplayFeatureView.swift */; };
+		B10000000000000000000026 /* iosClawMac/CompiledFlows.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20000000000000000000027 /* iosClawMac/CompiledFlows.swift */; };
+		B10000000000000000000027 /* iosClawMac/Features/Flows/CompiledFlowsFeatureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20000000000000000000028 /* iosClawMac/Features/Flows/CompiledFlowsFeatureView.swift */; };
+		B10000000000000000000031 /* iosClawMac/AppIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = B20000000000000000000032 /* iosClawMac/AppIcon.icns */; };
+		B10000000000000000000032 /* iosClawMac/PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = B20000000000000000000033 /* iosClawMac/PrivacyInfo.xcprivacy */; };
+		B10000000000000000000016 /* QAExecutionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20000000000000000000016 /* QAExecutionTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		68DFD924303DA79C00D129A1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B80000000000000000000001 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B50000000000000000000001;
+			remoteInfo = iosClawMac;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		B20000000000000000000001 /* iosClawMac/iosClawMacApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iosClawMac/iosClawMacApp.swift; sourceTree = "<group>"; };
+		B20000000000000000000002 /* iosClawMac/ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iosClawMac/ContentView.swift; sourceTree = "<group>"; };
+		B20000000000000000000003 /* iosClawMac/MirrorSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iosClawMac/MirrorSession.swift; sourceTree = "<group>"; };
+		B20000000000000000000004 /* iosClawMac/Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iosClawMac/Models.swift; sourceTree = "<group>"; };
+		B20000000000000000000005 /* iosClawMac/SecureAuditStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iosClawMac/SecureAuditStore.swift; sourceTree = "<group>"; };
+		B20000000000000000000007 /* iosClaw.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iosClaw.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B20000000000000000000008 /* iosClawMac/SecureLearningStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iosClawMac/SecureLearningStore.swift; sourceTree = "<group>"; };
+		B20000000000000000000009 /* iosClawMac/MirrorInputBackend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iosClawMac/MirrorInputBackend.swift; sourceTree = "<group>"; };
+		B20000000000000000000010 /* iosClawMac/QAModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iosClawMac/QAModels.swift; sourceTree = "<group>"; };
+		B20000000000000000000011 /* iosClawMac/WDAClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iosClawMac/WDAClient.swift; sourceTree = "<group>"; };
+		B20000000000000000000012 /* iosClawMac/SecureQAStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iosClawMac/SecureQAStore.swift; sourceTree = "<group>"; };
+		B20000000000000000000013 /* iosClawMac/QAExecutionEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iosClawMac/QAExecutionEngine.swift; sourceTree = "<group>"; };
+		B20000000000000000000014 /* iosClawMac/QASession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iosClawMac/QASession.swift; sourceTree = "<group>"; };
+		B20000000000000000000015 /* iosClawMac/QAModeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iosClawMac/QAModeView.swift; sourceTree = "<group>"; };
+		B20000000000000000000018 /* iosClawMac/AppCore/AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iosClawMac/AppCore/AppCoordinator.swift; sourceTree = "<group>"; };
+		B20000000000000000000019 /* iosClawMac/AppShell/AppShellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iosClawMac/AppShell/AppShellView.swift; sourceTree = "<group>"; };
+		B20000000000000000000020 /* iosClawMac/AppShell/AppSidebar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iosClawMac/AppShell/AppSidebar.swift; sourceTree = "<group>"; };
+		B20000000000000000000029 /* iosClawMac/AppShell/AppTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iosClawMac/AppShell/AppTheme.swift; sourceTree = "<group>"; };
+		B20000000000000000000030 /* iosClawMac/Features/Devices/DevicesFeatureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iosClawMac/Features/Devices/DevicesFeatureView.swift; sourceTree = "<group>"; };
+		B20000000000000000000031 /* iosClawMac/Features/Settings/SettingsFeatureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iosClawMac/Features/Settings/SettingsFeatureView.swift; sourceTree = "<group>"; };
+		B20000000000000000000021 /* iosClawMac/Features/Inspection/InspectionFeatureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iosClawMac/Features/Inspection/InspectionFeatureView.swift; sourceTree = "<group>"; };
+		B20000000000000000000022 /* iosClawMac/Features/Inspection/CapturePresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iosClawMac/Features/Inspection/CapturePresentation.swift; sourceTree = "<group>"; };
+		B20000000000000000000023 /* iosClawMac/Features/Learning/LearnedContextFeatureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iosClawMac/Features/Learning/LearnedContextFeatureView.swift; sourceTree = "<group>"; };
+		B20000000000000000000024 /* iosClawMac/Features/Audit/AuditFeatureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iosClawMac/Features/Audit/AuditFeatureView.swift; sourceTree = "<group>"; };
+		B20000000000000000000025 /* iosClawMac/SecureActionFlowStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iosClawMac/SecureActionFlowStore.swift; sourceTree = "<group>"; };
+		B20000000000000000000026 /* iosClawMac/Features/Recording/RecordReplayFeatureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iosClawMac/Features/Recording/RecordReplayFeatureView.swift; sourceTree = "<group>"; };
+		B20000000000000000000027 /* iosClawMac/CompiledFlows.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iosClawMac/CompiledFlows.swift; sourceTree = "<group>"; };
+		B20000000000000000000028 /* iosClawMac/Features/Flows/CompiledFlowsFeatureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iosClawMac/Features/Flows/CompiledFlowsFeatureView.swift; sourceTree = "<group>"; };
+		B20000000000000000000032 /* iosClawMac/AppIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = iosClawMac/AppIcon.icns; sourceTree = "<group>"; };
+		B20000000000000000000033 /* iosClawMac/PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = iosClawMac/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		B20000000000000000000016 /* QAExecutionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QAExecutionTests.swift; sourceTree = "<group>"; };
+		B20000000000000000000017 /* iosClawMacTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iosClawMacTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		B30000000000000000000001 /* iosClawMac */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = iosClawMac; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		B40000000000000000000002 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B40000000000000000000005 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		68DFD915303DA79B00D129A1 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				B20000000000000000000001 /* iosClawMac/iosClawMacApp.swift */,
+				B20000000000000000000002 /* iosClawMac/ContentView.swift */,
+				B20000000000000000000003 /* iosClawMac/MirrorSession.swift */,
+				B20000000000000000000004 /* iosClawMac/Models.swift */,
+				B20000000000000000000005 /* iosClawMac/SecureAuditStore.swift */,
+				B20000000000000000000008 /* iosClawMac/SecureLearningStore.swift */,
+				B20000000000000000000009 /* iosClawMac/MirrorInputBackend.swift */,
+				B20000000000000000000010 /* iosClawMac/QAModels.swift */,
+				B20000000000000000000011 /* iosClawMac/WDAClient.swift */,
+				B20000000000000000000012 /* iosClawMac/SecureQAStore.swift */,
+				B20000000000000000000013 /* iosClawMac/QAExecutionEngine.swift */,
+				B20000000000000000000014 /* iosClawMac/QASession.swift */,
+				B20000000000000000000015 /* iosClawMac/QAModeView.swift */,
+				B20000000000000000000018 /* iosClawMac/AppCore/AppCoordinator.swift */,
+				B20000000000000000000019 /* iosClawMac/AppShell/AppShellView.swift */,
+				B20000000000000000000020 /* iosClawMac/AppShell/AppSidebar.swift */,
+				B20000000000000000000029 /* iosClawMac/AppShell/AppTheme.swift */,
+				B20000000000000000000030 /* iosClawMac/Features/Devices/DevicesFeatureView.swift */,
+				B20000000000000000000031 /* iosClawMac/Features/Settings/SettingsFeatureView.swift */,
+				B20000000000000000000021 /* iosClawMac/Features/Inspection/InspectionFeatureView.swift */,
+				B20000000000000000000022 /* iosClawMac/Features/Inspection/CapturePresentation.swift */,
+				B20000000000000000000023 /* iosClawMac/Features/Learning/LearnedContextFeatureView.swift */,
+				B20000000000000000000024 /* iosClawMac/Features/Audit/AuditFeatureView.swift */,
+				B20000000000000000000025 /* iosClawMac/SecureActionFlowStore.swift */,
+				B20000000000000000000026 /* iosClawMac/Features/Recording/RecordReplayFeatureView.swift */,
+				B20000000000000000000027 /* iosClawMac/CompiledFlows.swift */,
+				B20000000000000000000028 /* iosClawMac/Features/Flows/CompiledFlowsFeatureView.swift */,
+				B20000000000000000000032 /* iosClawMac/AppIcon.icns */,
+				B20000000000000000000033 /* iosClawMac/PrivacyInfo.xcprivacy */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
+		B30000000000000000000002 = {
+			isa = PBXGroup;
+			children = (
+				B30000000000000000000001 /* iosClawMac */,
+				B30000000000000000000004 /* iosClawMacTests */,
+				B30000000000000000000003 /* Products */,
+				68DFD915303DA79B00D129A1 /* Recovered References */,
+			);
+			sourceTree = "<group>";
+		};
+		B30000000000000000000003 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B20000000000000000000007 /* iosClaw.app */,
+				B20000000000000000000017 /* iosClawMacTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B30000000000000000000004 /* iosClawMacTests */ = {
+			isa = PBXGroup;
+			children = (
+				B20000000000000000000016 /* QAExecutionTests.swift */,
+			);
+			path = iosClawMacTests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		B50000000000000000000001 /* iosClawMac */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B60000000000000000000002 /* Build configuration list for PBXNativeTarget "iosClawMac" */;
+			buildPhases = (
+				B40000000000000000000001 /* Sources */,
+				B40000000000000000000002 /* Frameworks */,
+				B40000000000000000000003 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = iosClawMac;
+			productName = iosClaw;
+			productReference = B20000000000000000000007 /* iosClaw.app */;
+			productType = "com.apple.product-type.application";
+		};
+		B50000000000000000000002 /* iosClawMacTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B60000000000000000000003 /* Build configuration list for PBXNativeTarget "iosClawMacTests" */;
+			buildPhases = (
+				B40000000000000000000004 /* Sources */,
+				B40000000000000000000005 /* Frameworks */,
+				B40000000000000000000006 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B90000000000000000000001 /* PBXTargetDependency */,
+			);
+			name = iosClawMacTests;
+			productName = iosClawMacTests;
+			productReference = B20000000000000000000017 /* iosClawMacTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		B80000000000000000000001 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastUpgradeCheck = 2660;
+				TargetAttributes = {
+					B50000000000000000000001 = {
+						CreatedOnToolsVersion = 26.6;
+					};
+					B50000000000000000000002 = {
+						CreatedOnToolsVersion = 26.6;
+						TestTargetID = B50000000000000000000001;
+					};
+				};
+			};
+			buildConfigurationList = B60000000000000000000001 /* Build configuration list for PBXProject "iosClawMac" */;
+			compatibilityVersion = "Xcode 16.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = B30000000000000000000002;
+			productRefGroup = B30000000000000000000003 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				B50000000000000000000001 /* iosClawMac */,
+				B50000000000000000000002 /* iosClawMacTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		B40000000000000000000003 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B10000000000000000000031 /* iosClawMac/AppIcon.icns in Resources */,
+				B10000000000000000000032 /* iosClawMac/PrivacyInfo.xcprivacy in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B40000000000000000000006 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		B40000000000000000000001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B10000000000000000000001 /* iosClawMac/iosClawMacApp.swift in Sources */,
+				B10000000000000000000002 /* iosClawMac/ContentView.swift in Sources */,
+				B10000000000000000000003 /* iosClawMac/MirrorSession.swift in Sources */,
+				B10000000000000000000004 /* iosClawMac/Models.swift in Sources */,
+				B10000000000000000000005 /* iosClawMac/SecureAuditStore.swift in Sources */,
+				B10000000000000000000008 /* iosClawMac/SecureLearningStore.swift in Sources */,
+				B10000000000000000000009 /* iosClawMac/MirrorInputBackend.swift in Sources */,
+				B10000000000000000000010 /* iosClawMac/QAModels.swift in Sources */,
+				B10000000000000000000011 /* iosClawMac/WDAClient.swift in Sources */,
+				B10000000000000000000012 /* iosClawMac/SecureQAStore.swift in Sources */,
+				B10000000000000000000013 /* iosClawMac/QAExecutionEngine.swift in Sources */,
+				B10000000000000000000014 /* iosClawMac/QASession.swift in Sources */,
+				B10000000000000000000015 /* iosClawMac/QAModeView.swift in Sources */,
+				B10000000000000000000017 /* iosClawMac/AppCore/AppCoordinator.swift in Sources */,
+				B10000000000000000000018 /* iosClawMac/AppShell/AppShellView.swift in Sources */,
+				B10000000000000000000019 /* iosClawMac/AppShell/AppSidebar.swift in Sources */,
+				B10000000000000000000028 /* iosClawMac/AppShell/AppTheme.swift in Sources */,
+				B10000000000000000000029 /* iosClawMac/Features/Devices/DevicesFeatureView.swift in Sources */,
+				B10000000000000000000030 /* iosClawMac/Features/Settings/SettingsFeatureView.swift in Sources */,
+				B10000000000000000000020 /* iosClawMac/Features/Inspection/InspectionFeatureView.swift in Sources */,
+				B10000000000000000000021 /* iosClawMac/Features/Inspection/CapturePresentation.swift in Sources */,
+				B10000000000000000000022 /* iosClawMac/Features/Learning/LearnedContextFeatureView.swift in Sources */,
+				B10000000000000000000023 /* iosClawMac/Features/Audit/AuditFeatureView.swift in Sources */,
+				B10000000000000000000024 /* iosClawMac/SecureActionFlowStore.swift in Sources */,
+				B10000000000000000000025 /* iosClawMac/Features/Recording/RecordReplayFeatureView.swift in Sources */,
+				B10000000000000000000026 /* iosClawMac/CompiledFlows.swift in Sources */,
+				B10000000000000000000027 /* iosClawMac/Features/Flows/CompiledFlowsFeatureView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B40000000000000000000004 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B10000000000000000000016 /* QAExecutionTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B90000000000000000000001 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B50000000000000000000001 /* iosClawMac */;
+			targetProxy = 68DFD924303DA79C00D129A1 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		B70000000000000000000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		B70000000000000000000002 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		B70000000000000000000003 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_TESTABILITY = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = iosClawMac/Info.plist;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 0.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.iosclaw.mac;
+				PRODUCT_MODULE_NAME = iosClawMac;
+				PRODUCT_NAME = iosClaw;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		B70000000000000000000004 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "Developer ID Application";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
+				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = iosClawMac/Info.plist;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 0.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.iosclaw.mac;
+				PRODUCT_MODULE_NAME = iosClawMac;
+				PRODUCT_NAME = iosClaw;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		B70000000000000000000005 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGNING_ALLOWED = NO;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.iosclaw.mac.tests;
+				PRODUCT_MODULE_NAME = iosClawMacTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iosClaw.app/Contents/MacOS/iosClaw";
+			};
+			name = Debug;
+		};
+		B70000000000000000000006 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGNING_ALLOWED = NO;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.iosclaw.mac.tests;
+				PRODUCT_MODULE_NAME = iosClawMacTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iosClaw.app/Contents/MacOS/iosClaw";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		B60000000000000000000001 /* Build configuration list for PBXProject "iosClawMac" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B70000000000000000000001 /* Debug */,
+				B70000000000000000000002 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B60000000000000000000002 /* Build configuration list for PBXNativeTarget "iosClawMac" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B70000000000000000000003 /* Debug */,
+				B70000000000000000000004 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B60000000000000000000003 /* Build configuration list for PBXNativeTarget "iosClawMacTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B70000000000000000000005 /* Debug */,
+				B70000000000000000000006 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = B80000000000000000000001 /* Project object */;
+}
