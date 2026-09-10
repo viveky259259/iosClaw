@@ -1,0 +1,10 @@
+.DS_Store
+.build/
+**/xcuserdata/
+**/*.xcuserstate
+**/node_modules/
+qa-vendor/**/build/
+DerivedData/
+
+# Local Netlify folder
+.netlify
