@@ -48,13 +48,6 @@ struct AppShellView: View {
                 .help("Refresh live context")
                 .disabled(session.isCompiledFlowRunning)
             }
-            ToolbarItem(placement: .principal) {
-                AppStatusPill(
-                    title: session.activeSource?.title ?? "No device",
-                    isReady: session.sourceHealth == .ready
-                )
-                .help(session.status)
-            }
             ToolbarItem(placement: .primaryAction) {
                 Button {
                     coordinator.isInspectorPresented.toggle()
