@@ -29,7 +29,7 @@ enum WorkspaceDestination: String, CaseIterable, Hashable, Identifiable {
 
     var title: String {
         switch self {
-        case .inspect: "Command"
+        case .inspect: "Live Session"
         case .devices: "Devices"
         case .compiledFlows: "Flows"
         case .recordReplay: "Recordings"

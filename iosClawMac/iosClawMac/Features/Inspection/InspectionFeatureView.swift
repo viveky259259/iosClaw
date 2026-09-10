@@ -24,7 +24,7 @@ struct InspectionFeatureView: View {
                 .inspectorColumnWidth(min: 280, ideal: AppTheme.inspectorWidth, max: 360)
         }
         .background(AppTheme.canvas(for: colorScheme))
-        .navigationTitle("Command")
+        .navigationTitle("Live Session")
     }
 
 
