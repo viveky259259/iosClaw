@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0a101b">
+  <meta name="description" content="iosClaw is a local-first Mac companion for reliable, verified iPhone automation.">
+  <meta property="og:title" content="iosClaw — Make every iPhone action repeatable">
+  <meta property="og:description" content="Observe live screen state, compile semantic flows, and verify every action from your Mac.">
+  <meta property="og:type" content="website">
+  <title>iosClaw — Reliable iPhone automation from your Mac</title>
+  <link rel="icon" href="assets/logo-icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="script.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <header class="site-header">
+    <div class="shell nav-wrap">
+      <a class="brand" href="#top" aria-label="iosClaw home">
+        <img src="assets/logo-icon.svg" alt="" width="32" height="32">
+        <span>iosClaw</span>
+      </a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open navigation">
+        <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+      <nav id="site-nav" class="site-nav" aria-label="Primary navigation">
+        <a href="#product">Product</a>
+        <a href="#compare">Compare</a>
+        <a href="#how-it-works">How it works</a>
+        <a href="#security">Security</a>
+        <a href="#download">Download</a>
+        <a class="nav-cta" href="#download">Get iosClaw <span aria-hidden="true">↗</span></a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <section id="top" class="hero shell">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="signal-dot" aria-hidden="true"></span> The local automation layer</p>
+        <h1>Make every iPhone action <em>repeatable.</em></h1>
+        <p class="hero-lede">iosClaw reads the screen you can see, turns intent into a verified flow, and runs it from your Mac. No brittle coordinates. No cloud relay.</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#download">Download for Mac <span aria-hidden="true">↗</span></a>
+          <a class="button button-quiet" href="#how-it-works">See the loop <span aria-hidden="true">↓</span></a>
+        </div>
+        <div class="hero-meta" aria-label="Release details">
+          <span>macOS 15+</span><span class="meta-separator" aria-hidden="true"></span><span>Developer ID signed</span><span class="meta-separator" aria-hidden="true"></span><span>Local-first</span>
+        </div>
+      </div>
+
+      <div class="console" aria-label="iosClaw flow preview">
+        <div class="console-topbar">
+          <div class="window-controls" aria-hidden="true"><i></i><i></i><i></i></div>
+          <span class="console-title">iosClaw / Run preview</span>
+          <span class="console-state"><span class="signal-dot" aria-hidden="true"></span> Ready</span>
+        </div>
+        <div class="console-body">
+          <div class="console-heading">
+            <div>
+              <p class="micro-label">Compiled flow</p>
+              <h2>Draft a message</h2>
+            </div>
+            <span class="verified-pill"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></svg> Verified</span>
+          </div>
+          <div class="phone-stage">
+            <div class="phone-frame">
+              <div class="phone-island" aria-hidden="true"></div>
+              <div class="phone-screen">
+                <div class="phone-status"><span>9:41</span><span>● ◔ ▮</span></div>
+                <div class="phone-appbar"><span class="phone-back">‹</span><strong>Chats</strong><span class="phone-compose">＋</span></div>
+                <div class="phone-search"><svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/></svg><span>Search</span></div>
+                <div class="chat-row selected"><span class="avatar avatar-green">H</span><span><strong>Honey</strong><small>Tap to open conversation</small></span><span class="row-check">✓</span></div>
+                <div class="chat-row"><span class="avatar avatar-blue">A</span><span><strong>Akash</strong><small>Last message yesterday</small></span></div>
+                <div class="chat-row"><span class="avatar avatar-purple">S</span><span><strong>Support</strong><small>Keep the thread moving</small></span></div>
+                <div class="phone-tabbar"><span class="active">Chats</span><span>Calls</span><span>Settings</span></div>
+              </div>
+            </div>
+            <div class="evidence-card">
+              <p class="micro-label">Live evidence</p>
+              <div class="evidence-line"><span class="evidence-icon"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4h13A1.5 1.5 0 0 1 20 5.5v10a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 15.5z"/><path d="M8 20h8M12 17v3"/></svg></span><span>iPhone Mirroring</span><strong>Live</strong></div>
+              <div class="evidence-line"><span class="evidence-icon"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M6 4h12v16H6z"/><path d="M9 8h6M9 12h6M9 16h3"/></svg></span><span>Screen state</span><strong>Chat list</strong></div>
+              <div class="evidence-foot"><span>Fresh bounds</span><span>0.4s ago</span></div>
+            </div>
+          </div>
+          <div class="run-steps" aria-label="Flow steps">
+            <div class="run-step done"><span class="step-index">01</span><span>Open WhatsApp</span><span class="step-status">Done</span></div>
+            <div class="run-step active"><span class="step-index">02</span><span>Find Honey</span><span class="step-status">Live</span></div>
+            <div class="run-step"><span class="step-index">03</span><span>Prepare draft</span><span class="step-status">Next</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="product" class="product-section shell section-rule">
+      <div class="section-intro">
+        <p class="eyebrow">One dependable loop</p>
+        <h2>Intent in. Verified action out.</h2>
+        <p>Automation should adapt to the screen in front of it—not remember where a button used to be.</p>
+      </div>
+      <div class="feature-grid">
+        <article class="feature-card">
+          <div class="feature-number">01</div>
+          <div class="feature-icon"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4h13A1.5 1.5 0 0 1 20 5.5v10a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 15.5z"/><path d="M8 20h8M12 17v3"/></svg></div>
+          <h3>See the current screen</h3>
+          <p>Capture iPhone Mirroring or Simulator locally, then pair OCR with app and state evidence.</p>
+          <span class="feature-link">Live context <span aria-hidden="true">→</span></span>
+        </article>
+        <article class="feature-card featured">
+          <div class="feature-number">02</div>
+          <div class="feature-icon"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M7 4v16M17 4v16M7 8h10M7 16h10"/><path d="m10 11 2-2 2 2M10 13l2 2 2-2"/></svg></div>
+          <h3>Compile intent once</h3>
+          <p>Turn a known request into a deterministic flow with semantic selectors and run-only inputs.</p>
+          <span class="feature-link">Compiled locally <span aria-hidden="true">→</span></span>
+        </article>
+        <article class="feature-card">
+          <div class="feature-number">03</div>
+          <div class="feature-icon"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3 5 6v5c0 4.4 2.9 8.5 7 10 4.1-1.5 7-5.6 7-10V6z"/><path d="m8.5 12 2.2 2.2 4.8-5"/></svg></div>
+          <h3>Verify every step</h3>
+          <p>Require fresh evidence and postconditions before moving forward. Ambiguity stops the run.</p>
+          <span class="feature-link">Fails closed <span aria-hidden="true">→</span></span>
+        </article>
+      </div>
+    </section>
+
+    <section id="compare" class="comparison-section shell section-rule">
+      <div class="comparison-heading">
+        <p class="eyebrow">The right layer for the job</p>
+        <h2>Computer use sees the world.<br><em>iosClaw makes iPhone work stick.</em></h2>
+        <p>Use a general computer-use agent when the surface is unknown. Use iosClaw when the target is an iPhone and the same action must run quickly, safely, and again.</p>
+      </div>
+      <div class="comparison-grid" role="list" aria-label="Computer use and iosClaw comparison">
+        <article class="comparison-card" role="listitem">
+          <div class="comparison-card-top"><span class="comparison-kicker">General-purpose</span><span class="comparison-mark comparison-mark-muted" aria-hidden="true">CU</span></div>
+          <h3>Computer use</h3>
+          <p class="comparison-summary">Flexible agent control for unfamiliar desktops, browsers, and apps.</p>
+          <dl class="comparison-list">
+            <div><span class="comparison-check comparison-check-muted"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></svg></span><div><dt>Best at</dt><dd>Exploring new surfaces</dd></div></div>
+            <div><span class="comparison-check comparison-check-muted"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></svg></span><div><dt>Coverage</dt><dd>Broad, cross-platform</dd></div></div>
+            <div><span class="comparison-check comparison-check-muted"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></svg></span><div><dt>Execution</dt><dd>Plans each run from what it sees</dd></div></div>
+            <div><span class="comparison-check comparison-check-muted"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></svg></span><div><dt>Trade-off</dt><dd>More latency and variability</dd></div></div>
+          </dl>
+        </article>
+        <article class="comparison-card comparison-card-primary" role="listitem">
+          <div class="comparison-card-top"><span class="comparison-kicker">iPhone runtime</span><span class="comparison-mark" aria-hidden="true">iC</span></div>
+          <h3>iosClaw</h3>
+          <p class="comparison-summary">A local execution layer for repeatable, verified iPhone flows.</p>
+          <dl class="comparison-list">
+            <div><span class="comparison-check"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></svg></span><div><dt>Best at</dt><dd>Known workflows that must repeat</dd></div></div>
+            <div><span class="comparison-check"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></svg></span><div><dt>Coverage</dt><dd>iPhone Mirroring and Simulator</dd></div></div>
+            <div><span class="comparison-check"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></svg></span><div><dt>Execution</dt><dd>Compiles once, resolves live state</dd></div></div>
+            <div><span class="comparison-check"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></svg></span><div><dt>Trade-off</dt><dd>Focused on Apple’s device boundary</dd></div></div>
+          </dl>
+        </article>
+      </div>
+      <div class="comparison-callout">
+        <span class="callout-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        <p><strong>Best together:</strong> let computer use understand intent, then hand the iPhone steps to iosClaw for deterministic replay and postcondition checks.</p>
+      </div>
+    </section>
+
+    <section id="how-it-works" class="loop-section shell section-rule">
+      <div class="loop-heading">
+        <p class="eyebrow">How it works</p>
+        <h2>From a fragile replay<br>to a <em>living flow.</em></h2>
+      </div>
+      <div class="loop-track">
+        <div class="loop-line" aria-hidden="true"></div>
+        <article class="loop-step"><span class="loop-dot">01</span><div><h3>Observe</h3><p>Start from the screen that is actually visible. iosClaw records semantic landmarks, not coordinates.</p></div></article>
+        <article class="loop-step"><span class="loop-dot">02</span><div><h3>Compile</h3><p>Lower the recording into a typed flow. Values become safe inputs and targets resolve from live state.</p></div></article>
+        <article class="loop-step"><span class="loop-dot">03</span><div><h3>Run</h3><p>Execute locally in milliseconds between steps, with one approval boundary for sensitive effects.</p></div></article>
+        <article class="loop-step"><span class="loop-dot">04</span><div><h3>Confirm</h3><p>Check the postcondition. If the app, state, or evidence changed unexpectedly, iosClaw pauses.</p></div></article>
+      </div>
+    </section>
+
+    <section id="security" class="security-section shell section-rule">
+      <div class="security-card">
+        <div class="security-copy">
+          <p class="eyebrow"><span class="lock-mark"><svg aria-hidden="true" viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></span> Built for trust</p>
+          <h2>Your context stays<br><em>on your Mac.</em></h2>
+          <p>iosClaw is designed around the boundary you already understand: your Mac, your iPhone, your approval.</p>
+          <a class="text-link" href="#download">Read the release notes <span aria-hidden="true">↗</span></a>
+        </div>
+        <div class="security-list">
+          <div class="security-row"><span class="security-check"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></svg></span><div><strong>Local capture and OCR</strong><span>No screen frames are sent to a hosted relay.</span></div></div>
+          <div class="security-row"><span class="security-check"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></svg></span><div><strong>Encrypted audit trail</strong><span>Execution history and learned context stay protected at rest.</span></div></div>
+          <div class="security-row"><span class="security-check"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></svg></span><div><strong>Human approval boundaries</strong><span>External effects never run silently.</span></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="download" class="download-section shell">
+      <div class="download-card">
+        <img src="assets/logo-icon.svg" alt="" width="48" height="48">
+        <p class="eyebrow">Ready when you are</p>
+        <h2>Give your flows<br>a reliable home.</h2>
+        <p>Download the notarized macOS beta and start with iPhone Mirroring or an iOS Simulator.</p>
+        <div class="download-actions">
+          <a class="button button-primary" href="downloads/iosClaw-0.1.0-1.dmg" download="iosClaw-0.1.0-1.dmg">Download iosClaw <span aria-hidden="true">↓</span></a>
+          <span class="download-note">macOS 15 or later · Universal build · <a href="downloads/iosClaw-0.1.0-1.dmg.sha256">SHA-256</a></span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell footer-wrap">
+      <a class="brand" href="#top" aria-label="iosClaw home"><img src="assets/logo-icon.svg" alt="" width="24" height="24"><span>iosClaw</span></a>
+      <p>Reliable automation for the iPhone in your hand.</p>
+      <span>© <span id="year"></span> iosClaw</span>
+    </div>
+  </footer>
+</body>
+</html>

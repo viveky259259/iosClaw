@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 512" role="img" aria-labelledby="title">
+  <title id="title">iosClaw</title>
+  <rect x="0" y="0" width="512" height="512" rx="116" fill="#0F172A"/>
+  <path d="M151 330c-18-50 7-103 52-116 16-5 29 5 29 20v58l19-105c4-20 20-33 39-30 17 3 27 20 23 38l-9 55 12-36c6-18 25-27 42-19 15 7 21 25 15 40l-14 35 26-22c14-12 35-10 46 5 10 14 8 33-5 44l-55 49c-31 28-77 41-119 25-30-11-52-33-62-61Z" fill="#F8FAFC"/>
+  <circle cx="155" cy="160" r="38" fill="#F8FAFC"/>
+  <text x="610" y="316" fill="#0F172A" font-family="'Helvetica Neue', Arial, sans-serif" font-size="216" font-weight="700" letter-spacing="-10">iosClaw</text>
+</svg>
