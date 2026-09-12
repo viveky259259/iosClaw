@@ -1,0 +1,47 @@
+name: Local macOS CI
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: local-macos-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    name: Build and test
+    runs-on: [self-hosted, macOS, ARM64, iosclaw]
+    timeout-minutes: 30
+
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          persist-credentials: false
+
+      - name: Validate scripts and MCP bridge
+        run: |
+          bash -n scripts/install-macos.sh
+          bash -n scripts/release-macos.sh
+          bash -n scripts/ui-feedback-loop.sh
+          bash -n scripts/uninstall-macos.sh
+          node --check mcp/iosclaw-mcp.mjs
+
+      - name: Build and run safety tests
+        run: |
+          validation_dir="$(mktemp -d /tmp/iosclaw-ci.XXXXXX)"
+          trap 'rm -rf "$validation_dir"' EXIT
+          xcodebuild \
+            -project iosClawMac/iosClawMac.xcodeproj \
+            -scheme iosClawMac \
+            -configuration Debug \
+            -destination 'platform=macOS,arch=arm64' \
+            -derivedDataPath "$validation_dir" \
+            CODE_SIGNING_ALLOWED=NO \
+            build test
