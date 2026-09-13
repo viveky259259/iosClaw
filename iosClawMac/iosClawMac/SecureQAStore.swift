@@ -14,19 +14,29 @@ final class SecureQAStore {
     init(
         fileManager: FileManager = .default,
         keychainService: String = "com.iosclaw.mac",
-        keychainAccount: String = "qa-store-key"
+        keychainAccount: String = "qa-store-key",
+        directoryURL: URL? = nil,
+        encryptionKey: SymmetricKey? = nil
     ) throws {
-        let support = try fileManager.url(
-            for: .applicationSupportDirectory,
-            in: .userDomainMask,
-            appropriateFor: nil,
-            create: true
-        )
-        directory = support.appendingPathComponent("iosClaw/qa", isDirectory: true)
+        if let directoryURL {
+            directory = directoryURL
+        } else {
+            let support = try fileManager.url(
+                for: .applicationSupportDirectory,
+                in: .userDomainMask,
+                appropriateFor: nil,
+                create: true
+            )
+            directory = support.appendingPathComponent("iosClaw/qa", isDirectory: true)
+        }
         artifactsDirectory = directory.appendingPathComponent("artifacts", isDirectory: true)
         stateURL = directory.appendingPathComponent("state.bin")
         try fileManager.createDirectory(at: artifactsDirectory, withIntermediateDirectories: true)
-        key = try QAKeychainKey.loadOrCreate(service: keychainService, account: keychainAccount)
+        if let encryptionKey {
+            key = encryptionKey
+        } else {
+            key = try QAKeychainKey.loadOrCreate(service: keychainService, account: keychainAccount)
+        }
     }
 
     func load() throws -> QAStoredState {

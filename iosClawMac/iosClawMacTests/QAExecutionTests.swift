@@ -1243,9 +1243,12 @@ final class QAExecutionTests: XCTestCase {
 
     func testExecutionEngineRecordsVerifiedReplay() async throws {
         let client = RecordingWDA()
+        let directory = FileManager.default.temporaryDirectory
+            .appendingPathComponent("iosclaw-qa-store-\(UUID().uuidString)")
+        defer { try? FileManager.default.removeItem(at: directory) }
         let store = try SecureQAStore(
-            keychainService: "com.iosclaw.mac.tests.\(UUID().uuidString)",
-            keychainAccount: "qa-store-key"
+            directoryURL: directory,
+            encryptionKey: SymmetricKey(size: .bits256)
         )
         let flow = QAFlow(
             name: "Replay",
