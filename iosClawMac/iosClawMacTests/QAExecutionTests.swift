@@ -592,6 +592,11 @@ final class QAExecutionTests: XCTestCase {
             TextTarget(text: "Chats", normalizedBounds: .zero),
             TextTarget(text: "Unrelated", normalizedBounds: .zero)
         ]), .generic)
+        XCTAssertEqual(SemanticScreenState.classify([
+            TextTarget(text: "Chats", normalizedBounds: .zero),
+            TextTarget(text: "Updates", normalizedBounds: .zero),
+            TextTarget(text: "Settings", normalizedBounds: .zero)
+        ]), .chatList)
     }
 
     func testSemanticStateRecognizesConversationFromSeparateComposerControls() {
@@ -1333,6 +1338,53 @@ private final class MockWDAURLProtocol: URLProtocol {
     }
 
     override func stopLoading() {}
+}
+
+extension QAExecutionTests {
+    func testUnreadChatTriageExtractsAndPrioritizesUrgentPreview() {
+        let targets = [
+            TextTarget(text: "Chats", normalizedBounds: CGRect(x: 0.1, y: 0.93, width: 0.2, height: 0.03)),
+            TextTarget(text: "All", normalizedBounds: CGRect(x: 0.1, y: 0.86, width: 0.1, height: 0.03)),
+            TextTarget(text: "Unread", normalizedBounds: CGRect(x: 0.25, y: 0.86, width: 0.15, height: 0.03)),
+            TextTarget(text: "Alex", normalizedBounds: CGRect(x: 0.08, y: 0.74, width: 0.22, height: 0.03)),
+            TextTarget(text: "Urgent: client payment is due today", normalizedBounds: CGRect(x: 0.08, y: 0.69, width: 0.55, height: 0.03)),
+            TextTarget(text: "Jamie", normalizedBounds: CGRect(x: 0.08, y: 0.58, width: 0.22, height: 0.03)),
+            TextTarget(text: "See you later", normalizedBounds: CGRect(x: 0.08, y: 0.53, width: 0.40, height: 0.03))
+        ]
+
+        let chats = UnreadChatTriage.extract(from: targets, assumesAllRowsUnread: true)
+
+        XCTAssertEqual(chats.count, 2)
+        XCTAssertEqual(chats.first(where: { $0.contact == "Alex" })?.priority, .urgent)
+        XCTAssertEqual(chats.first(where: { $0.contact == "Alex" })?.matchedSignals, ["urgent", "due", "today", "payment", "client"])
+        XCTAssertEqual(chats.first(where: { $0.contact == "Jamie" })?.priority, .routine)
+    }
+
+    func testUnreadChatTriageRejectsInterfaceChromeAndTimestamps() {
+        let targets = [
+            TextTarget(text: "Chats", normalizedBounds: CGRect(x: 0.1, y: 0.92, width: 0.2, height: 0.03)),
+            TextTarget(text: "Unread 3", normalizedBounds: CGRect(x: 0.2, y: 0.86, width: 0.18, height: 0.03)),
+            TextTarget(text: "Today", normalizedBounds: CGRect(x: 0.1, y: 0.72, width: 0.12, height: 0.03)),
+            TextTarget(text: "10:30", normalizedBounds: CGRect(x: 0.1, y: 0.67, width: 0.12, height: 0.03))
+        ]
+
+        XCTAssertTrue(UnreadChatTriage.extract(from: targets, assumesAllRowsUnread: true).isEmpty)
+    }
+
+    func testUnreadChatTriageUsesVisibleUnreadBadgesWhenFilterIsUnavailable() {
+        let targets = [
+            TextTarget(text: "Alex", normalizedBounds: CGRect(x: 0.08, y: 0.74, width: 0.22, height: 0.03)),
+            TextTarget(text: "Urgent: call me", normalizedBounds: CGRect(x: 0.08, y: 0.69, width: 0.42, height: 0.03)),
+            TextTarget(text: "4", normalizedBounds: CGRect(x: 0.82, y: 0.71, width: 0.05, height: 0.03)),
+            TextTarget(text: "Jamie", normalizedBounds: CGRect(x: 0.08, y: 0.58, width: 0.22, height: 0.03)),
+            TextTarget(text: "See you later", normalizedBounds: CGRect(x: 0.08, y: 0.53, width: 0.40, height: 0.03))
+        ]
+
+        let chats = UnreadChatTriage.extract(from: targets)
+
+        XCTAssertEqual(chats.map(\.contact), ["Alex"])
+        XCTAssertEqual(chats.first?.priority, .urgent)
+    }
 }
 
 private actor RecordingWDA: WDAControlling {

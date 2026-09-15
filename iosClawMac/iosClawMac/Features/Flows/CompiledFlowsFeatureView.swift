@@ -5,6 +5,7 @@ struct CompiledFlowsFeatureView: View {
     @Environment(\.colorScheme) private var colorScheme
     @State private var recipient = ""
     @State private var message = ""
+    @State private var unreadLimit = 100
 
     var body: some View {
         ScrollView {
@@ -49,6 +50,8 @@ struct CompiledFlowsFeatureView: View {
                 }
 
                 quickDraft
+                Divider()
+                unreadChatTriage
                 Divider()
 
                 ViewThatFits(in: .horizontal) {
@@ -171,6 +174,86 @@ struct CompiledFlowsFeatureView: View {
                 .buttonStyle(.borderedProminent)
                 .tint(AppTheme.action)
                 .disabled(!canRun)
+            }
+        }
+        .padding(16)
+        .background(.background.opacity(0.76), in: RoundedRectangle(cornerRadius: 14, style: .continuous))
+    }
+
+    private var unreadChatTriage: some View {
+        VStack(alignment: .leading, spacing: 14) {
+            HStack(alignment: .top, spacing: 12) {
+                Image(systemName: "text.badge.checkmark")
+                    .font(.title3)
+                    .foregroundStyle(.white)
+                    .frame(width: 38, height: 38)
+                    .background(AppTheme.success, in: RoundedRectangle(cornerRadius: 10, style: .continuous))
+                VStack(alignment: .leading, spacing: 3) {
+                    Text("Unread chat triage")
+                        .font(.headline)
+                    Text("Scan up to 100 unread chats using WhatsApp's Unread filter or visible unread-count badges, then surface urgent, deadline, payment, work, or family signals.")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
+                Spacer()
+                Text("Local only")
+                    .font(.caption.weight(.semibold))
+                    .foregroundStyle(AppTheme.success)
+            }
+
+            HStack {
+                Stepper("Scan up to \(unreadLimit) unread chats", value: $unreadLimit, in: 1...100)
+                    .font(.callout)
+                Spacer()
+                if session.isUnreadTriageRunning {
+                    ProgressView().controlSize(.small)
+                    Text("Scanning…")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
+                Button("Scan unread chats", systemImage: "text.magnifyingglass") {
+                    session.triageUnreadWhatsAppChats(limit: unreadLimit)
+                }
+                .buttonStyle(.borderedProminent)
+                .tint(AppTheme.success)
+                .disabled(!canRunUnreadTriage)
+            }
+
+            Text("Start on WhatsApp's Chats tab. iosClaw uses the visible Unread filter when available, otherwise scans unread-count badges. It never opens a conversation, and results remain only while this app is open.")
+                .font(.caption)
+                .foregroundStyle(.secondary)
+
+            if let result = session.unreadTriageResult {
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("\(result.importantChats.count) important chat\(result.importantChats.count == 1 ? "" : "s") from \(result.scannedChatCount) scanned")
+                        .font(.subheadline.weight(.semibold))
+                    if result.importantChats.isEmpty {
+                        Text("No visible unread previews matched the current priority signals.")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    } else {
+                        ForEach(result.importantChats) { chat in
+                            HStack(alignment: .top, spacing: 10) {
+                                Text(chat.priority.rawValue.capitalized)
+                                    .font(.caption2.weight(.bold))
+                                    .foregroundStyle(chat.priority == .urgent ? AppTheme.warning : AppTheme.success)
+                                    .frame(width: 48, alignment: .leading)
+                                VStack(alignment: .leading, spacing: 2) {
+                                    Text(chat.contact).font(.callout.weight(.semibold))
+                                    Text(chat.preview)
+                                        .font(.caption)
+                                        .foregroundStyle(.secondary)
+                                        .lineLimit(2)
+                                    Text(chat.matchedSignals.joined(separator: ", "))
+                                        .font(.caption2)
+                                        .foregroundStyle(.tertiary)
+                                }
+                            }
+                        }
+                    }
+                }
+                .padding(12)
+                .background(.background.opacity(0.62), in: RoundedRectangle(cornerRadius: 10, style: .continuous))
             }
         }
         .padding(16)
@@ -308,6 +391,15 @@ struct CompiledFlowsFeatureView: View {
             && session.screenCaptureAllowed
             && session.accessibilityAllowed
             && !session.isCompiledFlowRunning
+            && session.replayingFlowID == nil
+            && !session.isRecording
+    }
+
+    private var canRunUnreadTriage: Bool {
+        session.screenCaptureAllowed
+            && session.accessibilityAllowed
+            && !session.isCompiledFlowRunning
+            && !session.isUnreadTriageRunning
             && session.replayingFlowID == nil
             && !session.isRecording
     }

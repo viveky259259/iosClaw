@@ -426,6 +426,186 @@ struct TextTarget: Identifiable, Equatable {
     }
 }
 
+/// A local-only summary of one row observed while the WhatsApp Unread filter
+/// is active. It intentionally does not include a stable contact identifier,
+/// so nothing from the scan is written to learned context or disk.
+struct UnreadChatCandidate: Identifiable, Equatable {
+    enum Priority: String, Codable, Equatable, Comparable {
+        case routine
+        case notable
+        case high
+        case urgent
+
+        private var rank: Int {
+            switch self {
+            case .routine: 0
+            case .notable: 1
+            case .high: 2
+            case .urgent: 3
+            }
+        }
+
+        static func < (lhs: Priority, rhs: Priority) -> Bool { lhs.rank < rhs.rank }
+    }
+
+    let contact: String
+    let preview: String
+    let priority: Priority
+    let matchedSignals: [String]
+
+    var id: String {
+        "\(SemanticTargetResolver.normalized(contact))|\(SemanticTargetResolver.normalized(preview))"
+    }
+}
+
+struct UnreadChatTriageResult: Equatable {
+    let scannedChatCount: Int
+    let pagesScanned: Int
+    let importantChats: [UnreadChatCandidate]
+}
+
+/// Extracts conservative candidate rows from local OCR while WhatsApp's
+/// Unread filter is active. OCR may be incomplete, so a row is reported only
+/// when it has a plausible left-aligned title and a following preview line.
+enum UnreadChatTriage {
+    private struct OCRLine {
+        let y: CGFloat
+        let text: String
+    }
+
+    private static let interfaceLabels: Set<String> = [
+        "chats", "search", "all", "unread", "favorites", "groups", "archived",
+        "updates", "calls", "tools", "settings", "edit", "new chat", "broadcast"
+    ]
+
+    private static let signals: [(term: String, score: Int)] = [
+        ("emergency", 5), ("urgent", 4), ("asap", 4), ("immediately", 4),
+        ("help", 3), ("call me", 3), ("deadline", 3), ("due", 3),
+        ("today", 2), ("tomorrow", 2), ("payment", 3), ("invoice", 3),
+        ("salary", 3), ("interview", 3), ("meeting", 2), ("client", 2),
+        ("work", 1), ("mom", 2), ("dad", 2), ("family", 2)
+    ]
+
+    static func extract(
+        from targets: [TextTarget],
+        assumesAllRowsUnread: Bool = false
+    ) -> [UnreadChatCandidate] {
+        let lines = makeLines(from: targets)
+        let unreadBadgeYPositions = targets.compactMap { target -> CGFloat? in
+            let text = target.text.trimmingCharacters(in: .whitespacesAndNewlines)
+            guard target.normalizedBounds.minX >= 0.72,
+                  target.normalizedBounds.midY > 0.14,
+                  target.normalizedBounds.midY < 0.90,
+                  text.range(of: "^[0-9]+$", options: .regularExpression) != nil
+            else { return nil }
+            return target.normalizedBounds.midY
+        }
+        var candidates: [UnreadChatCandidate] = []
+        var index = 0
+
+        while index + 1 < lines.count {
+            let title = lines[index]
+            let preview = lines[index + 1]
+            guard isPlausibleTitle(title.text), isPlausiblePreview(preview.text) else {
+                index += 1
+                continue
+            }
+            // A WhatsApp row's title and preview are stacked closely. Larger
+            // gaps indicate adjacent rows or interface chrome.
+            guard title.y - preview.y > 0.006, title.y - preview.y < 0.105 else {
+                index += 1
+                continue
+            }
+            guard assumesAllRowsUnread || unreadBadgeYPositions.contains(where: {
+                abs($0 - title.y) < 0.075 || abs($0 - preview.y) < 0.075
+            }) else {
+                index += 2
+                continue
+            }
+            candidates.append(candidate(contact: title.text, preview: preview.text))
+            index += 2
+        }
+
+        var seen: Set<String> = []
+        return candidates.filter { seen.insert($0.id).inserted }
+    }
+
+    private static func makeLines(from targets: [TextTarget]) -> [OCRLine] {
+        let visible = targets.compactMap { target -> (text: String, y: CGFloat)? in
+            let text = target.text.trimmingCharacters(in: .whitespacesAndNewlines)
+            let bounds = target.normalizedBounds
+            guard bounds.minX < 0.72,
+                  bounds.midY > 0.14,
+                  bounds.midY < 0.90,
+                  !text.isEmpty,
+                  !isInterfaceText(text),
+                  !isTimestamp(text)
+            else { return nil }
+            return (text, bounds.midY)
+        }.sorted { $0.y > $1.y }
+
+        var lines: [(y: CGFloat, values: [String])] = []
+        for target in visible {
+            if let last = lines.indices.last,
+               abs(lines[last].y - target.y) < 0.024 {
+                lines[last].values.append(target.text)
+            } else {
+                lines.append((target.y, [target.text]))
+            }
+        }
+        return lines.map { OCRLine(y: $0.y, text: $0.values.joined(separator: " ")) }
+    }
+
+    private static func candidate(contact: String, preview: String) -> UnreadChatCandidate {
+        let haystack = SemanticTargetResolver.normalized("\(contact) \(preview)")
+        let matches = signals.filter { haystack.contains($0.term) }
+        let score = matches.reduce(0) { $0 + $1.score }
+        let priority: UnreadChatCandidate.Priority
+        switch score {
+        case 6...: priority = .urgent
+        case 3...: priority = .high
+        case 1...: priority = .notable
+        default: priority = .routine
+        }
+        return UnreadChatCandidate(
+            contact: contact,
+            preview: preview,
+            priority: priority,
+            matchedSignals: matches.map(\.term)
+        )
+    }
+
+    private static func isPlausibleTitle(_ text: String) -> Bool {
+        let normalized = SemanticTargetResolver.normalized(text)
+        return normalized.count >= 2
+            && normalized.count <= 60
+            && !isInterfaceText(text)
+            && !isTimestamp(text)
+            && normalized.range(of: "^[0-9]+$", options: .regularExpression) == nil
+    }
+
+    private static func isPlausiblePreview(_ text: String) -> Bool {
+        let normalized = SemanticTargetResolver.normalized(text)
+        return normalized.count >= 1
+            && normalized.count <= 160
+            && !isInterfaceText(text)
+            && !isTimestamp(text)
+    }
+
+    private static func isInterfaceText(_ text: String) -> Bool {
+        let normalized = SemanticTargetResolver.normalized(text)
+        return interfaceLabels.contains(normalized) || normalized.hasPrefix("unread")
+    }
+
+    private static func isTimestamp(_ text: String) -> Bool {
+        let normalized = SemanticTargetResolver.normalized(text)
+        return normalized.range(
+            of: "^(today|yesterday|mon|tue|wed|thu|fri|sat|sun|[0-9]{1,2}:[0-9]{2}|[0-9]{1,2}/[0-9]{1,2})$",
+            options: .regularExpression
+        ) != nil
+    }
+}
+
 enum SemanticPlacement: String, Codable, Equatable {
     case top
     case middle
@@ -466,7 +646,10 @@ enum SemanticScreenState: String, Codable, Equatable {
                 count, anchor in
                 if labels.contains(anchor) { count += 1 }
             }
-            if labels.contains("search") || filterAnchorCount >= 2 || tabAnchorCount >= 3 {
+            // Some WhatsApp Business builds render Calls and Tools as icons,
+            // leaving OCR with only Updates and Settings. Two recognized tabs
+            // plus the Chats title is still a stable chat-list quorum.
+            if labels.contains("search") || filterAnchorCount >= 2 || tabAnchorCount >= 2 {
                 return .chatList
             }
         }

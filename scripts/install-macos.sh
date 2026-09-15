@@ -58,14 +58,24 @@ fi
 mkdir -p "$derived_data_path" "$backup_dir"
 
 echo "Building ${configuration}..."
-xcodebuild \
-  -project "$project_path" \
-  -scheme "$TARGET_NAME" \
-  -configuration "$configuration" \
-  -destination 'platform=macOS,arch=arm64' \
-  -derivedDataPath "$derived_data_path" \
-  "${build_overrides[@]}" \
-  build
+if ((${#build_overrides[@]})); then
+  xcodebuild \
+    -project "$project_path" \
+    -scheme "$TARGET_NAME" \
+    -configuration "$configuration" \
+    -destination 'platform=macOS,arch=arm64' \
+    -derivedDataPath "$derived_data_path" \
+    "${build_overrides[@]}" \
+    build
+else
+  xcodebuild \
+    -project "$project_path" \
+    -scheme "$TARGET_NAME" \
+    -configuration "$configuration" \
+    -destination 'platform=macOS,arch=arm64' \
+    -derivedDataPath "$derived_data_path" \
+    build
+fi
 
 [[ -d "$built_app" ]] || { echo "Build did not produce $built_app" >&2; exit 1; }
 

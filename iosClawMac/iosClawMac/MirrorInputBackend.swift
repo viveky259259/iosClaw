@@ -158,6 +158,28 @@ final class MirrorInputBackend {
         up.postToPid(window.ownerPID)
     }
 
+    /// Advances a vertically scrolling collection by one screenful. The
+    /// gesture is deliberately source-window scoped and has no caller-supplied
+    /// geometry, so it cannot become a general blind-coordinate action.
+    func scrollChatListTowardOlderChats(in window: MirrorWindow) throws {
+        try preflight(window: window)
+        guard let source = CGEventSource(stateID: .hidSystemState),
+              let event = CGEvent(
+                scrollWheelEvent2Source: source,
+                units: .line,
+                wheelCount: 1,
+                wheel1: -6,
+                wheel2: 0,
+                wheel3: 0
+              )
+        else { throw InputError.eventCreationFailed }
+        // Unlike pointer clicks, iPhone Mirroring consumes wheel input from
+        // the HID stream rather than its process event queue. Preflight has
+        // already raised the verified source window, so the global wheel event
+        // is still bounded to that foreground mirror.
+        event.post(tap: .cghidEventTap)
+    }
+
     private func tap(at point: CGPoint, window: MirrorWindow) throws {
         try preflight(window: window)
         guard let source = CGEventSource(stateID: .hidSystemState),
@@ -176,11 +198,23 @@ final class MirrorInputBackend {
         guard let current = CGEvent(source: nil)?.location,
               hypot(current.x - point.x, current.y - point.y) <= 2
         else { throw InputError.cursorPositioningFailed }
-        move.post(tap: .cghidEventTap)
+        post(move, to: window)
         Thread.sleep(forTimeInterval: 0.03)
-        down.post(tap: .cghidEventTap)
+        post(down, to: window)
         Thread.sleep(forTimeInterval: 0.05)
-        up.post(tap: .cghidEventTap)
+        post(up, to: window)
+    }
+
+    private func post(_ event: CGEvent, to window: MirrorWindow) {
+        // iPhone Mirroring can remain visible while another macOS app owns
+        // the global event target. Delivering the gesture to the verified
+        // source process keeps taps paired with the capture generation that
+        // authorized them. Simulator retains the global path it expects.
+        if window.source == .iPhoneMirroring {
+            event.postToPid(window.ownerPID)
+        } else {
+            event.post(tap: .cghidEventTap)
+        }
     }
 
     private func screenPoint(for bounds: NormalizedBounds, in window: MirrorWindow) -> CGPoint {

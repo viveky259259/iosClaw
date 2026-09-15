@@ -38,6 +38,8 @@ final class MirrorSession: ObservableObject {
     @Published private(set) var latestCompiledRun: CompiledFlowRun?
     @Published private(set) var isCompiledFlowRunning = false
     @Published private(set) var userCompiledDrafts: [CompiledFlowPackage] = []
+    @Published private(set) var unreadTriageResult: UnreadChatTriageResult?
+    @Published private(set) var isUnreadTriageRunning = false
 
     private let auditStore: SecureAuditStore?
     private let learningStore: SecureLearningStore?
@@ -85,6 +87,22 @@ final class MirrorSession: ObservableObject {
     func refreshPermissions() {
         screenCaptureAllowed = CGPreflightScreenCaptureAccess()
         accessibilityAllowed = AXIsProcessTrusted()
+    }
+
+    /// Locally scans the WhatsApp Unread filter without opening conversations
+    /// or persisting chat names/previews. The caller must first make the live
+    /// WhatsApp chat list visible so the filter can be verified from OCR.
+    func triageUnreadWhatsAppChats(limit: Int) {
+        let cappedLimit = min(max(limit, 1), 100)
+        guard !isUnreadTriageRunning, !isCompiledFlowRunning, replayContext == nil, !isRecording else {
+            status = "Wait for the current local workflow to finish before scanning unread chats."
+            return
+        }
+        isUnreadTriageRunning = true
+        unreadTriageResult = nil
+        Task { [weak self] in
+            await self?.runUnreadWhatsAppTriage(limit: cappedLimit)
+        }
     }
 
     func requestScreenRecording() {
@@ -801,6 +819,9 @@ final class MirrorSession: ObservableObject {
         let scale = max(1, CGFloat(filter.pointPixelScale))
         configuration.width = max(1, Int((filter.contentRect.width * scale).rounded(.up)))
         configuration.height = max(1, Int((filter.contentRect.height * scale).rounded(.up)))
+        configuration.pixelFormat = kCVPixelFormatType_32BGRA
+        configuration.capturesAudio = false
+        configuration.showsCursor = false
         return configuration
     }
 
@@ -1749,6 +1770,98 @@ final class MirrorSession: ObservableObject {
         await withCheckedContinuation { continuation in
             inspect { success in continuation.resume(returning: success) }
         }
+    }
+
+    private func runUnreadWhatsAppTriage(limit: Int) async {
+        defer { isUnreadTriageRunning = false }
+        guard await inspectForAgentAction() else {
+            status = "Unread chat triage stopped because iosClaw could not inspect the live phone screen."
+            return
+        }
+        guard currentSemanticState == .chatList else {
+            status = "Open WhatsApp's Chats tab, then run unread chat triage. iosClaw will not navigate into conversations while scanning."
+            return
+        }
+        let unreadFilterSelected = await selectUnreadChatFilter()
+
+        var uniqueCandidates: [String: UnreadChatCandidate] = [:]
+        var pagesScanned = 0
+        var stagnantPages = 0
+        let maximumPages = 100
+
+        while pagesScanned < maximumPages, uniqueCandidates.count < limit {
+            let pageCandidates = UnreadChatTriage.extract(
+                from: textTargets,
+                assumesAllRowsUnread: unreadFilterSelected
+            )
+            let countBefore = uniqueCandidates.count
+            for candidate in pageCandidates where uniqueCandidates.count < limit {
+                uniqueCandidates[candidate.id] = candidate
+            }
+            pagesScanned += 1
+            stagnantPages = uniqueCandidates.count == countBefore ? stagnantPages + 1 : 0
+
+            guard uniqueCandidates.count < limit, stagnantPages < 3 else { break }
+            guard await scrollUnreadChatList() else { break }
+        }
+
+        let allChats = Array(uniqueCandidates.values)
+        let important = allChats.filter { $0.priority >= .high }.sorted {
+            if $0.priority != $1.priority { return $0.priority > $1.priority }
+            return $0.contact.localizedCaseInsensitiveCompare($1.contact) == .orderedAscending
+        }
+        unreadTriageResult = UnreadChatTriageResult(
+            scannedChatCount: allChats.count,
+            pagesScanned: pagesScanned,
+            importantChats: important
+        )
+        status = "Unread chat triage checked \(allChats.count) locally observed chat row(s) across \(pagesScanned) page(s) and found \(important.count) high-priority chat(s)."
+        append(kind: .observation, "Unread chat triage completed locally: \(allChats.count) row(s) checked, \(important.count) high-priority result(s).")
+    }
+
+    private func selectUnreadChatFilter() async -> Bool {
+        guard currentSemanticState == .chatList else { return false }
+        guard let mirrorWindow, let target = unresolvedUnreadFilterTarget() else {
+            // WhatsApp Business versions without filter pills still expose
+            // unread-count badges in the chat list. The extractor uses those
+            // visible badges as a conservative fallback.
+            status = "WhatsApp's Unread filter is not visible; scanning only rows with visible unread-count badges."
+            return false
+        }
+        return await awaitAgentAction { completion in
+            performInput(
+                "Selected WhatsApp's Unread filter.",
+                verification: .freshObservation,
+                completion: completion
+            ) {
+                try inputBackend.tap(target: target, in: mirrorWindow)
+            }
+        }
+    }
+
+    private func scrollUnreadChatList() async -> Bool {
+        guard currentSemanticState == .chatList, let mirrorWindow else {
+            status = "Unread chat triage stopped because the live screen is no longer WhatsApp's chat list."
+            return false
+        }
+        return await awaitAgentAction { completion in
+            performInput(
+                "Scrolled WhatsApp's Unread chat list.",
+                verification: .screenChanged,
+                completion: completion
+            ) {
+                try inputBackend.scrollChatListTowardOlderChats(in: mirrorWindow)
+            }
+        }
+    }
+
+    private func unresolvedUnreadFilterTarget() -> ResolvedSemanticTarget? {
+        let candidates = textTargets.filter { target in
+            let label = SemanticTargetResolver.normalized(target.text)
+            return label == "unread" || label.hasPrefix("unread ")
+        }
+        guard candidates.count == 1, let target = candidates.first else { return nil }
+        return ResolvedSemanticTarget(textTarget: target, state: currentSemanticState)
     }
 
     private func awaitAgentAction(

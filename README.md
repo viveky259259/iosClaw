@@ -132,6 +132,7 @@ Useful project documents:
 - [`docs/manual-record-replay.md`](docs/manual-record-replay.md) — recording model.
 - [`docs/compiled-flow-registry-tech-prd.md`](docs/compiled-flow-registry-tech-prd.md) — compiler, policy, and persistence contract.
 - [`docs/macos-modular-architecture.md`](docs/macos-modular-architecture.md) — Mac app module boundaries.
+- [`content-plan.md`](content-plan.md) — community-safe content plan for sharing Codex experiments.
 
 ## Direct macOS releases
 
